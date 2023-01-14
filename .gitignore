@@ -1,5 +1,5 @@
 structure101-settings.java.hsw
-./docker/postgres-data
+docker/postgres-data/*
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

@@ -1,0 +1,101 @@
+
+management:
+  endpoints:
+    web:
+      base-path: /springinfo
+      exposure:
+        include: '*'
+
+server:
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    mime-types: 'text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json'
+    min-response-size: 1024
+  port: ${port:8443}
+  servlet:
+    context-path: /
+
+log4j:
+  logger:
+    org:
+      hibernate:
+        SQL: off
+        type: off
+
+logging:
+  level:
+    jdbc:
+      resultset: error
+      resultsettable: error
+      connection: error
+      audit: error
+      sqltiming: error
+      sqlonly: error
+    web: DEBUG
+    root: info
+    org:
+      hibernate:
+        SQL: off
+        type: off
+
+application:
+  message: testovoye
+
+log:
+  dir: ${TMP}
+  fileName: "default.log"
+
+hibernate:
+  enable_lazy_load_no_trans: true
+  globally_quoted_identifiers: true
+
+lombok:
+  config:
+    chain: true
+
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  main:
+    lazy-initialization: true
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
+    hibernate:
+      hbm2ddl:
+        auto: validate
+      ddl-auto: validate
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    open-in-view: false
+    show-sql: true
+  resources:
+    cache:
+      cachecontrol:
+        # The resources are private and intended for a single user. They must not be stored by a shared cache (e.g CDN).
+        cache-private: true
+        # The resources are public and any cache may store the response.
+        cache-public: false
+  http:
+    log-request-details: true
+    jpa:
+      hibernate: use-new-id-generator-mappings
+      properties.hibernate.enable_lazy_load_no_trans: true
+  datasource:
+    url: jdbc:log4jdbc:postgresql://postgres:5432/test
+    username: postgres
+    password: postgres
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  application:
+    name: test-app
+app:
+  cors:
+    allowedOrigins: http://localhost:3000/,http://localhost:3000,http://localhost:8080,http://localhost:8082,http://localhost:8082/,http://localhost:8080/,http://185.13.148.148:8080,http://185.13.148.148:8082,185.13.148.148:8080,185.13.148.148:8082
